@@ -1,0 +1,31 @@
+{
+  "name": "node-red-contrib-precAgriNodes",
+  "version": "0.0.1",
+  "description": "A agriculture nodes for node-red",
+  "dependencies": {
+    "is-utf8": "^0.2.1",
+    "mqtt": "^1.13.0"
+  },
+  "keywords": [
+    "node-red"
+  ],
+  "node-red": {
+    "nodes": {
+      "temperatura_ar": "temperatura_ar/temperatura_ar.js",
+      "temperatura_solo": "temperatura_solo/temperatura_solo.js",
+      "humidade_ar": "humidade_ar/humidade_ar.js",
+      "humidade_solo": "humidade_solo/humidade_solo.js",
+
+      "radiacaoSolar": "radiacaoSolar/radiacaoSolar.js",
+
+
+
+      "led": "led/led.js",
+      "ledStrip": "ledStrip/ledStrip.js",
+      "motor": "motor/motor.js",
+      "relay": "relay/relay.js",
+
+      "processors": "processors/processor.js"
+    }
+  }
+}
