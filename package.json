@@ -18,7 +18,9 @@
 
       "radiacaoSolar": "radiacaoSolar/radiacaoSolar.js",
 
-
+      "pluviosidade": "pluviosidade/pluviosidade.js",
+      "direccao_vento": "direccao_vento/direccao_vento.js",
+      "velocidade_vento": "velocidade_vento/velocidade_vento.js",
 
       "led": "led/led.js",
       "ledStrip": "ledStrip/ledStrip.js",
