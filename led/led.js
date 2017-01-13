@@ -9,7 +9,7 @@ module.exports = function (RED) {
         var node = this;
 
         if (this.brokerConn) {
-            this.status({fill:"red",shape:"ring",text:"common.status.disconnected"});
+            this.status({fill:"red",shape:"ring",text:"node-red:common.status.disconnected"});
             this.on("input",function(msg) {
                 if (msg.qos) {
                     msg.qos = parseInt(msg.qos);
@@ -31,7 +31,7 @@ module.exports = function (RED) {
                 }
             });
             if (this.brokerConn.connected) {
-                node.status({fill:"green",shape:"dot",text:"common.status.connected"});
+                node.status({fill:"green",shape:"dot",text:"node-red:common.status.connected"});
             }
             node.brokerConn.register(node);
             this.on('close', function(done) {

@@ -7,10 +7,10 @@ module.exports = function(RED) {
     function Velocidade_ventoNode(n) {
         RED.nodes.createNode(this,n);
         this.topic = n.topic;
-        //this.qos = parseInt(n.qos);
-        //if (isNaN(this.qos) || this.qos < 0 || this.qos > 2) {
-        //    this.qos = 2;
-        //}
+        this.qos = parseInt(n.qos);
+        if (isNaN(this.qos) || this.qos < 0 || this.qos > 2) {
+            this.qos = 2;
+        }
         this.broker = n.broker;
         this.brokerConn = RED.nodes.getNode(this.broker);
         if (!/^(#$|(\+|[^+#]*)(\/(\+|[^+#]*))*(\/(\+|#|[^+#]*))?$)/.test(this.topic)) {
@@ -18,7 +18,7 @@ module.exports = function(RED) {
         }
         var node = this;
         if (this.brokerConn) {
-            this.status({fill:"red",shape:"ring",text:"common.status.disconnected"});
+            this.status({fill:"red",shape:"ring",text:"node-red:common.status.disconnected"});
             if (this.topic) {
                 node.brokerConn.register(this);
                 this.brokerConn.subscribe(this.topic,this.qos,function(topic,payload,packet) {
@@ -30,7 +30,7 @@ module.exports = function(RED) {
                     node.send(msg);
                 }, this.id);
                 if (this.brokerConn.connected) {
-                    node.status({fill:"green",shape:"dot",text:"common.status.connected"});
+                    node.status({fill:"green",shape:"dot",text:"node-red:common.status.connected"});
                 }
             }
             else {

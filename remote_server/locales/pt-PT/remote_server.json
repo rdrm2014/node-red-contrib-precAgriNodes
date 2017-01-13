@@ -1,8 +1,7 @@
 {
   "direccao_vento": {
-    "waspId":"waspId",
-    "message1": "This is my first message",
-    "message2": "This is my second message"
+    "message1": "Primeira Mensagem!",
+    "message2": "Segunda Mensagem!"
   },
   "common": {
     "status": {
@@ -17,7 +16,11 @@
   "mqtt": {
     "label": {
       "broker": "Broker",
-      "qos": "qos"
+      "qos": "qos",
+      "port": "Port"
+    },
+    "tabs-label": {
+      "connection": "Connection"
     }
   }
 }

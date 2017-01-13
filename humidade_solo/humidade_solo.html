@@ -37,35 +37,6 @@
     </div>
 </script>
 
-<!--<script type="text/x-red" data-template-name="humidade_solo">
-    <div class="form-row">
-        <label for="node-config-input-host"><i class="icon-bookmark"></i> Host</label>
-        <input type="text" id="node-config-input-host">
-    </div>
-    <div class="form-row">
-        <label for="node-config-input-port"><i class="icon-bookmark"></i> Port</label>
-        <input type="text" id="node-config-input-port">
-    </div>
-</script>-->
-
-
-
-
-
-
-
-<!--<script type="text/x-red" data-help-name="humidade_solo">
-    <p>Connects to a broker and subscribes to the specified topic.</p>
-    <p>Outputs a message with the properties:</p>
-    <ul>
-       <li><code>msg.topic</code></li>
-       <li><code>msg.payload</code></li>
-       <li><code>msg.qos</code></li>
-       <li><code>msg.retain</code></li>
-    </ul>
-    <p><code>msg.payload</code> will be a String, unless it is detected as a binary buffer.</p>
-</script>-->
-
 <script type="text/javascript">
     RED.nodes.registerType('humidade_solo',{
         category: 'Agricultura',
@@ -92,21 +63,3 @@
         }
     });
 </script>
-
-
-<!--
-<script type="text/javascript">
-    RED.nodes.registerType('humidade_solo',{
-        category: 'Agricultura',
-        color: '#F3B567',
-        defaults: {
-            host: {value:"localhost",required:true},
-            port: {value:1234,required:true,validate:RED.validators.number()},
-        },
-        inputs:0,
-        outputs:1,
-        label: function() {
-            return this.host+":"+this.port;
-        }
-    });
-</script>-->

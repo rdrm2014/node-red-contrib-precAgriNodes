@@ -13,82 +13,63 @@
 
 <script type="text/x-red" data-template-name="direccao_vento">
     <div class="form-row">
-        <label for="node-input-broker"><i class="fa fa-globe"></i> <span data-i18n="mqtt.label.broker"></span></label>
-        <input type="text" id="node-input-broker">
-    </div>
-    <div class="form-row">
-        <label for="node-input-topic"><i class="fa fa-tasks"></i> <span data-i18n="common.label.topic"></span></label>
-        <input type="text" id="node-input-topic" data-i18n="[placeholder]common.label.topic">
-    </div>
-    <div class="form-row">
-        <label for="node-input-qos"><i class="fa fa-empire"></i> <span data-i18n="mqtt.label.qos"></span></label>
-        <select id="node-input-qos" style="width:125px !important">
-            <option value="0">0</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
+        <label for="node-input-waspId"><i class="fa fa-globe"></i> <span data-i18n="direccao_vento.waspId"></span></label>
+        <select id="node-input-waspId">
         </select>
     </div>
-     <div class="form-row">
-        <label for="node-input-name"><i class="fa fa-tag"></i> <span data-i18n="direccao_vento.message1"></span></label>
+    <div class="form-row">
+        <label for="node-input-broker"><i class="fa fa-globe"></i> <span data-i18n="mqtt.label.broker"></span></label>
+        <input type="text" id="node-input-broker">
     </div>
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i> <span data-i18n="common.label.name"></span></label>
         <input type="text" id="node-input-name" data-i18n="[placeholder]common.label.name">
     </div>
+
 </script>
 
-<!--<script type="text/x-red" data-template-name="direccao_vento">
-    <div class="form-row">
-        <label for="node-config-input-host"><i class="icon-bookmark"></i> Host</label>
-        <input type="text" id="node-config-input-host">
-    </div>
-    <div class="form-row">
-        <label for="node-config-input-port"><i class="icon-bookmark"></i> Port</label>
-        <input type="text" id="node-config-input-port">
-    </div>
-</script>-->
-
-
-
-
-
-
-
-<!--<script type="text/x-red" data-help-name="direccao_vento">
-    <p>Connects to a broker and subscribes to the specified topic.</p>
-    <p>Outputs a message with the properties:</p>
-    <ul>
-       <li><code>msg.topic</code></li>
-       <li><code>msg.payload</code></li>
-       <li><code>msg.qos</code></li>
-       <li><code>msg.retain</code></li>
-    </ul>
-    <p><code>msg.payload</code> will be a String, unless it is detected as a binary buffer.</p>
-</script>-->
-
 <script type="text/javascript">
-    RED.nodes.registerType('direccao_vento',{
+
+    RED.nodes.registerType('direccao_vento', {
         category: 'Agricultura',
-        color:"#FA7921",
+        color: "#FA7921",
         defaults: {
-            name: {value:""},
-            topic: {value:"",required:true,validate: RED.validators.regex(/^(#$|(\+|[^+#]*)(\/(\+|[^+#]*))*(\/(\+|#|[^+#]*))?$)/)},
-            qos: {value: "2"},
-            broker: {type:"mqtt-broker", required:true}
+            waspId: {value: ""},
+            name: {value: ""},
+            /*topic: {
+             value: "",
+             required: true,
+             validate: RED.validators.regex(/^(#$|(\+|[^+#]*)(\/(\+|[^+#]*))*(\/(\+|#|[^+#]*))?$)/)
+             },
+             qos: {value: "2"},*/
+            broker: {type: "remote-server", required: true}
         },
-        inputs:0,
-        outputs:1,
+        inputs: 0,
+        outputs: 1,
         icon: "direccao_vento.png",
-        label: function() {
-            return this.name||this.topic||"direccao_vento";
+        label: function () {
+            return this.name || this.topic || "direccao_vento";
         },
-        labelStyle: function() {
-            return this.name?"node_label_italic":"";
+        labelStyle: function () {
+            return this.name ? "node_label_italic" : "";
         },
-        oneditprepare: function() {
-            if (this.qos === undefined) {
-                $("#node-input-qos").val("2");
-            }
+        oneditprepare: function () {
+            var waspId = this.waspId;
+            $.ajax({
+                url: "http://" + location.host + "/peers?json=true", success: function (result) {
+                    $.each(result, function (i, item) {
+                        //console.log(item);
+                        $('#node-input-waspId').append($('<option>', {
+                            value: item.name,
+                            text: item.description
+                        }));
+                    });
+                    $("#node-input-waspId").val(waspId);
+                }
+            });
+            /*if (this.qos === undefined) {
+             $("#node-input-qos").val("2");
+             }*/
         }
     });
 </script>

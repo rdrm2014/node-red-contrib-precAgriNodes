@@ -11,6 +11,8 @@
   ],
   "node-red": {
     "nodes": {
+      "remote_server": "remote_server/remote_server.js",
+
       "temperatura_ar": "temperatura_ar/temperatura_ar.js",
       "temperatura_solo": "temperatura_solo/temperatura_solo.js",
       "humidade_ar": "humidade_ar/humidade_ar.js",
