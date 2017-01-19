@@ -1,31 +1,17 @@
 <script type="text/x-red" data-template-name="motor">
     <div class="form-row">
+        <label for="node-input-waspId"><i class="fa fa-globe"></i> <span data-i18n="direccao_vento.waspId"></span></label>
+        <select id="node-input-waspId">
+        </select>
+    </div>
+    <div class="form-row">
         <label for="node-input-broker"><i class="fa fa-globe"></i> <span data-i18n="mqtt.label.broker"></span></label>
         <input type="text" id="node-input-broker">
-    </div>
-    <div class="form-row">
-        <label for="node-input-topic"><i class="fa fa-tasks"></i> <span data-i18n="common.label.topic"></span></label>
-        <input type="text" id="node-input-topic" data-i18n="[placeholder]common.label.topic">
-    </div>
-    <div class="form-row">
-        <label for="node-input-qos"><i class="fa fa-empire"></i> <span data-i18n="mqtt.label.qos"></span></label>
-        <select id="node-input-qos" style="width:125px !important">
-            <option value=""></option>
-            <option value="0">0</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-        </select>
-        &nbsp;&nbsp;<i class="fa fa-history"></i>&nbsp;<span data-i18n="mqtt.retain"></span> &nbsp;<select id="node-input-retain" style="width:125px !important">
-            <option value=""></option>
-            <option value="false" data-i18n="mqtt.false"></option>
-            <option value="true" data-i18n="mqtt.true"></option>
-        </select>
     </div>
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i> <span data-i18n="common.label.name"></span></label>
         <input type="text" id="node-input-name" data-i18n="[placeholder]common.label.name">
     </div>
-    <div class="form-tips"><span data-i18n="mqtt.tip"></span></div>
 </script>
 
 <script type="text/x-red" data-help-name="motor">
@@ -44,11 +30,9 @@
     RED.nodes.registerType('motor',{
         category: 'Agricultura',
         defaults: {
-            name: {value:""},
-            topic: {value:""},
-            qos: {value:""},
-            retain: {value:""},
-            broker: {type:"mqtt-broker", required:true}
+            waspId: {value: ""},
+            name: {value: ""},
+            broker: {type: "remote-server", required: true}
         },
         color:"#9CAFB7",
         inputs:1,
@@ -60,6 +44,20 @@
         },
         labelStyle: function() {
             return this.name?"node_label_italic":"";
+        },
+        oneditprepare: function () {
+            var waspId = this.waspId;
+            $.ajax({
+                url: "http://" + location.host + "/peers?json=true", success: function (result) {
+                    $.each(result, function (i, item) {
+                        $('#node-input-waspId').append($('<option>', {
+                            value: item.name,
+                            text: item.description
+                        }));
+                    });
+                    $("#node-input-waspId").val(waspId);
+                }
+            });
         }
     });
 </script>

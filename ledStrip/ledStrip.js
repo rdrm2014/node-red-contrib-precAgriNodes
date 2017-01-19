@@ -1,13 +1,23 @@
 module.exports = function (RED) {
     function LedStripNode(n) {
+        var config = require('../package.json');
         RED.nodes.cresateNode(this,n);
-        this.topic = n.topic;
-        this.qos = n.qos || null;
-        this.retain = n.retain;
+
+        this.appKey = config.appKey;
+        this.waspId = n.waspId;
+        //this.sensorId = n.sensorId;
+        this.dataType = "ledStrip";
+        //this.topic = "Final/" + this.appKey + "/" + this.waspId + "/Sensor/"+this.sensorId+"/" + this.dataType;
+        this.topic = "Final/" + this.appKey + "/" + this.waspId + "/Sensor/" + this.dataType;
+
+        this.qos = 2;
         this.broker = n.broker;
         this.brokerConn = RED.nodes.getNode(this.broker);
-        var node = this;
 
+        if (!/^(#$|(\+|[^+#]*)(\/(\+|[^+#]*))*(\/(\+|#|[^+#]*))?$)/.test(this.topic)) {
+            return this.warn(RED._("mqtt.errors.invalid-topic"));
+        }
+        var node = this;
         if (this.brokerConn) {
             this.status({fill:"red",shape:"ring",text:"node-red:common.status.disconnected"});
             this.on("input",function(msg) {

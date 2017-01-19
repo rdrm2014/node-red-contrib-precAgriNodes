@@ -3,16 +3,18 @@ module.exports = function (RED) {
     var mqtt = require("mqtt");
     var util = require("util");
     var isUtf8 = require('is-utf8');
+    var config = require('../package.json');
 
     function Direccao_ventoNode(n) {
         RED.nodes.createNode(this, n);
 
-        this.appKey = "0";
+        this.appKey = config.appKey;
         this.waspId = n.waspId;
-        this.dataType = "direccao_vento";
-
-        this.topic = "Final/"+this.appKey+"/"+this.waspId+"/Sensor/"+this.dataType;
-        console.log("this.topic:" +this.topic);
+        //this.sensorId = n.sensorId;
+        this.dataType = "wind";
+        //this.topic = "Final/" + this.appKey + "/" + this.waspId + "/Sensor/"+this.sensorId+"/" + this.dataType;
+        this.topic = "Final/" + this.appKey + "/" + this.waspId + "/Sensor/" + this.dataType;
+        //console.log(this.topic);
         this.qos = 2;
         this.broker = n.broker;
         this.brokerConn = RED.nodes.getNode(this.broker);
