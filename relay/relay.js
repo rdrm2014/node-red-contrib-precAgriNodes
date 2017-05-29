@@ -7,8 +7,8 @@ module.exports = function (RED) {
         this.appKey = config.appKey;
         this.waspId = n.waspId;
         this.dataType = "relay";
-        this.topic = "Final/" + this.appKey + "/" + this.waspId + "/Sensor/" + this.dataType;
-
+        //this.topic = "Final/" + this.appKey + "/" + this.waspId + "/Sensor/" + this.dataType;
+        this.topic = n.topic;
         this.qos = 2;
         this.broker = n.broker;
         this.brokerConn = RED.nodes.getNode(this.broker);

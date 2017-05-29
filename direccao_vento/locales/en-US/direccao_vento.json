@@ -1,8 +1,7 @@
 {
   "direccao_vento": {
     "waspId":"waspId",
-    "message1": "This is my first message",
-    "message2": "This is my second message"
+    "topic":"topic"
   },
   "common": {
     "status": {

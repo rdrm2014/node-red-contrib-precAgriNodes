@@ -13,11 +13,17 @@ module.exports = function (RED) {
         //this.sensorId = n.sensorId;
         this.dataType = "wind";
         //this.topic = "Final/" + this.appKey + "/" + this.waspId + "/Sensor/"+this.sensorId+"/" + this.dataType;
-        this.topic = "Final/" + this.appKey + "/" + this.waspId + "/Sensor/" + this.dataType;
+        //this.topic = "Final/" + this.appKey + "/" + this.waspId + "/Sensor/" + this.dataType;
         //console.log(this.topic);
+        this.topic = n.topic;
         this.qos = 2;
+        /*this.broker = n.broker;
+        this.brokerConn = RED.nodes.getNode(this.broker);*/
         this.broker = n.broker;
         this.brokerConn = RED.nodes.getNode(this.broker);
+        if (!/^(#$|(\+|[^+#]*)(\/(\+|[^+#]*))*(\/(\+|#|[^+#]*))?$)/.test(this.topic)) {
+            return this.warn(RED._("mqtt.errors.invalid-topic"));
+        }
 
         if (!/^(#$|(\+|[^+#]*)(\/(\+|[^+#]*))*(\/(\+|#|[^+#]*))?$)/.test(this.topic)) {
             return this.warn(RED._("mqtt.errors.invalid-topic"));

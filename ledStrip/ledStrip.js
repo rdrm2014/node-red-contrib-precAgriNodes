@@ -8,8 +8,8 @@ module.exports = function (RED) {
         //this.sensorId = n.sensorId;
         this.dataType = "ledStrip";
         //this.topic = "Final/" + this.appKey + "/" + this.waspId + "/Sensor/"+this.sensorId+"/" + this.dataType;
-        this.topic = "Final/" + this.appKey + "/" + this.waspId + "/Sensor/" + this.dataType;
-
+        //this.topic = "Final/" + this.appKey + "/" + this.waspId + "/Sensor/" + this.dataType;
+        this.topic = n.topic;
         this.qos = 2;
         this.broker = n.broker;
         this.brokerConn = RED.nodes.getNode(this.broker);
